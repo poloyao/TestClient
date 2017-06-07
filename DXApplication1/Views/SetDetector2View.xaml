@@ -1,0 +1,40 @@
+﻿<UserControl xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:DXApplication1.ViewModels"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="DXApplication1.Views.SetDetector2View"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:SetDetector2ViewModel}}"
+             >
+    <Grid>
+
+        <dx:DXTabControl>
+            <dx:DXTabItem Header="Tab">
+                <Grid Background="Transparent">
+                    <dxlc:DataLayoutControl CurrentItem="{Binding ControlData}"/>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="显示、延时设定">
+                <Grid Background="Transparent">
+                    <dxlc:DataLayoutControl CurrentItem="{Binding ControlData2}"/>
+                    <Canvas >
+                        <Button  Content="button"></Button>
+                    </Canvas>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="串口设置">
+                <Grid Background="Transparent">
+                    <dxlc:DataLayoutControl CurrentItem="{Binding ControlData3}"/>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="设备设置">
+                <Grid Background="Transparent">
+                    <dxlc:DataLayoutControl CurrentItem="{Binding ControlData4}"/>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
+    </Grid>
+</UserControl>

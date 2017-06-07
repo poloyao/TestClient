@@ -31,6 +31,11 @@ namespace DXApplication1.Views
         {
 
         }
+
+        private void predefinedNotificationsList_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class PanelContentControl : ContentControl

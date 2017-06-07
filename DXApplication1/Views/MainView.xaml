@@ -14,6 +14,7 @@
              d:DesignHeight="600" d:DesignWidth="800">
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:CurrentWindowService/>
+        <dx:WindowedDocumentUIService/>
     </dxmvvm:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
@@ -72,33 +73,47 @@
                                 </Style>
                             </dxn:NavBarControl.ItemStyle>
                             <dxn:NavBarControl.View>
-                                <dxn:NavigationPaneView x:Name="navPanelView" IsOverflowPanelVisible="False" IsSplitterVisible="False"
-									NavPaneExpandedChanged="navPanelView_NavPaneExpandedChanged" NavPaneExpandedChanging="navPanelView_NavPaneExpandedChanging"/>
+                                <dxn:NavigationPaneView x:Name="navPanelView" ></dxn:NavigationPaneView>
+                                <!--<dxn:NavigationPaneView x:Name="navPanelView" IsOverflowPanelVisible="False" IsSplitterVisible="False"
+									NavPaneExpandedChanged="navPanelView_NavPaneExpandedChanged" NavPaneExpandedChanging="navPanelView_NavPaneExpandedChanging"/>-->
                             </dxn:NavBarControl.View>
                         </dxn:NavBarControl>
                     </dxdo:LayoutPanel>
-                    <dxdo:LayoutPanel Caption="33" ShowCaption="False" AllowClose="False"  AllowDrag="False" AllowDrop="False" AllowHide="False" ShowCloseButton="False">
-                        <dxwui:NavigationFrame  x:Name="documentFrame" Navigating="OnDocumentFrameNavigating" Navigated="OnDocumentFrameNavigated">
-                            <dxwui:NavigationFrame.Resources>
-                                <Style TargetType="{x:Type dxwui:PageAdornerControl}">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type dxwui:PageAdornerControl}">
-                                                <ContentPresenter Content="{TemplateBinding Content}" />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </dxwui:NavigationFrame.Resources>
-                            <dxmvvm:Interaction.Behaviors>
-                                <Custom:FrameNavigationService ShowSplashScreen="True">
-                                    <!--<Custom:FrameNavigationService.SplashScreenService>
+                    <dxdo:LayoutGroup Orientation="Vertical">
+                        <!--<dxdo:LayoutPanel MaxHeight="60" Visibility="Visible"  Caption="33" ShowCaption="False" AllowClose="False"  AllowDrag="False" AllowDrop="False" AllowHide="False" ShowCloseButton="False" BorderBrush="#FFC72828">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="image" Margin="5" Source="{dx:DXImage Image=Backward_32x32.png}" />
+                                <TextBlock Grid.Column="1" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Title}" FontSize="24"  />
+                            </Grid>
+                        </dxdo:LayoutPanel>-->
+                        <dxdo:LayoutPanel  Caption="33" ShowCaption="False" AllowClose="False"  AllowDrag="False" AllowDrop="False" AllowHide="False" ShowCloseButton="False">
+
+                            <dxwui:NavigationFrame  x:Name="documentFrame" Navigating="OnDocumentFrameNavigating" Navigated="OnDocumentFrameNavigated">
+                                <dxwui:NavigationFrame.Resources>
+                                    <Style TargetType="{x:Type dxwui:PageAdornerControl}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type dxwui:PageAdornerControl}">
+                                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </dxwui:NavigationFrame.Resources>
+                                <dxmvvm:Interaction.Behaviors>
+                                    <Custom:FrameNavigationService ShowSplashScreen="False">
+                                        <!--<Custom:FrameNavigationService.SplashScreenService>
                                         <dx:DXSplashScreenService SplashScreenStartupLocation="CenterOwner"  ViewTemplate="{StaticResource waitIndicator}"  OwnerSearchMode="IgnoreAssociatedObject" />
                                     </Custom:FrameNavigationService.SplashScreenService>-->
-                                </Custom:FrameNavigationService>
-                            </dxmvvm:Interaction.Behaviors>
-                        </dxwui:NavigationFrame>
-                    </dxdo:LayoutPanel>
+                                    </Custom:FrameNavigationService>
+                                </dxmvvm:Interaction.Behaviors>
+                            </dxwui:NavigationFrame>
+                        </dxdo:LayoutPanel>
+                    </dxdo:LayoutGroup>
                 </dxdo:LayoutGroup>
             </dxdo:DockLayoutManager>
 

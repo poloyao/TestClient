@@ -5,17 +5,19 @@ using DevExpress.Utils;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DevExpress.Mvvm.POCO;
+using System.Linq;
 
 namespace DXApplication1.ViewModels
 {
     [POCOViewModel]
-    public class MainViewModel
+    public class MainViewModel:ViewModelBase
     {
         /// <summary>
         /// 模块组
         /// </summary>
         public virtual IEnumerable<ModuleGroup> ModuleGroups { get; protected set; }
         public virtual ModuleInfo SelectedModuleInfo { get; set; }
+        
 
         [Required]
         protected virtual ICurrentWindowService CurrentWindowService { get { return null; } }
@@ -25,9 +27,9 @@ namespace DXApplication1.ViewModels
         {
             List<ModuleInfo> modules = new List<ModuleInfo>()
             {
-                 ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
-                  ViewModelSource.Create(()=>new ModuleInfo("SettingManageView",this,"参数设置")).SetIcon("car"),
-                   ViewModelSource.Create(()=>new ModuleInfo("SetDetectorView",this,"参数设置")).SetIcon("car"),
+                 ViewModelSource.Create(()=>new ModuleInfo("SettingManageView",this,"参数设置")).SetIcon("car"),
+                  ViewModelSource.Create(()=>new ModuleInfo("SetDetectorView",this,"参数设置1")).SetIcon("car"),
+                   ViewModelSource.Create(()=>new ModuleInfo("SetDetector2View",this,"参数设置2")).SetIcon("car"),
                     ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
                      ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
                       ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
@@ -39,8 +41,19 @@ namespace DXApplication1.ViewModels
             ModuleGroups = new ModuleGroup[] {
                 new ModuleGroup("功能",modules)
             };
+            
 
-            var ass = this.GetService<INavigationService>();
+        }
+
+
+        public void OnModulesLoaded()
+        {
+            if (SelectedModuleInfo == null)
+            {
+                SelectedModuleInfo = ModuleGroups.First().ModuleInfos.First();
+                SelectedModuleInfo.IsSelected = true;
+                SelectedModuleInfo.Show();
+            }
 
         }
 
@@ -90,6 +103,7 @@ namespace DXApplication1.ViewModels
                     INavigationService navigationService = parent.ServiceContainer.GetRequiredService<INavigationService>();
                     navigationService.Navigate(Type, parameter, parent);
                     IsSelected = false;
+                    CommonViewModel.Title = Title;                    
                 }
             }
             catch (Exception ex)

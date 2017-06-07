@@ -81,11 +81,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\CommonViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SetDetector2ViewModel.cs" />
     <Compile Include="ViewModels\SetDetectorViewModel.cs" />
     <Compile Include="ViewModels\SettingManageViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SetDetector2View.xaml.cs">
+      <DependentUpon>SetDetector2View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SetDetectorView.xaml.cs">
       <DependentUpon>SetDetectorView.xaml</DependentUpon>
@@ -110,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SetDetector2View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
