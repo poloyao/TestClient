@@ -1,0 +1,261 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DXApplication1.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:ViewModels="clr-namespace:DXApplication1.ViewModels"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" x:Class="DXApplication1.Views.TestRTD"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:TestRTDViewModel}}"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:CarIcoConverter x:Key="CarIcoConverter" />
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+            <!--<VirtualizingStackPanel IsItemsHost="True"/>-->
+            <WrapPanel  Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType={x:Type ScrollContentPresenter}}}">
+                <!--<TextBlock Text="{Binding StationNo}" />
+                <TextBlock Text="{Binding StationName}" />-->
+            </WrapPanel>
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="DataTemplate1">
+            <Border CornerRadius="5" Background="#FFEA6969" >
+                <Grid Margin="5" Width="230">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationNo}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationName}" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding CarNo}" x:Name="carno" Grid.Row="2"/>
+                    <Grid Grid.Row="3">
+                        <Image Grid.Row="1"  Width="48" Height="48" Source="{Binding Text, Converter={StaticResource CarIcoConverter}, ElementName=carno}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <dxmvvm:Interaction.Triggers>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding StartUpdateCommand}"/>
+        <dxmvvm:EventToCommand EventName="BeforeModuleDisappear" Command="{Binding StopUpdateCommand}"/>
+    </dxmvvm:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="136"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <ListView ItemsSource="{Binding Stations}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemTemplate="{DynamicResource DataTemplate1}" />
+        </Grid>
+
+        <!--<Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="5" Background="#FFEA6969" Grid.Column="0" Margin="5"  DataContext="{Binding Stations[0],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationNo}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationName}" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding CarNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"/>
+                    <Image Grid.Row="3" Width="48" Height="48" Source="/DXApplication1;component/Img/car1.png"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="5" Background="#FFEA6969" Grid.Column="1" Margin="5"  DataContext="{Binding Stations[1],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationNo}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationName}" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding CarNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"/>
+                    <Image Grid.Row="3" Width="48" Height="48" Source="/DXApplication1;component/Img/car1.png"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="5" Background="#FFEA6969"  Grid.Column="2" Margin="5"  DataContext="{Binding Stations[2],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationNo}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationName}" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding CarNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"/>
+                    <Image Grid.Row="3" Width="48" Height="48" Source="/DXApplication1;component/Img/car1.png"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="5" Background="#FFEA6969"  Grid.Column="3" Margin="5"  DataContext="{Binding Stations[3],Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationNo}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding StationName}" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Center" Text="{Binding CarNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"/>
+                    <Image Grid.Row="3" Width="48" Height="48" Source="/DXApplication1;component/Img/car1.png"/>
+                </Grid>
+            </Border>
+
+        </Grid>-->
+
+        <Grid Grid.Row="1">
+            <dxg:GridControl ItemsSource="{Binding Data}" AutoGenerateColumns="AddNew" SelectionMode="Row" >
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowEditing="False" AllowGrouping="False" ShowGroupPanel="False" NavigationStyle="Row" AnimateConditionalFormattingTransition="True"
+                               AllowConditionalFormattingMenu="True" AllowDataUpdateFormatConditionMenu="True" AutoWidth="True">
+                        <!--<dxg:TableView.FormatConditions>
+                            <dxg:DataUpdateFormatCondition FieldName="DeltaPrice" PredefinedFormatName="GreenFillWithDarkGreenText" Rule="Increase"/>
+                        </dxg:TableView.FormatConditions>-->
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="CarNo" IsSmart="True"/>
+                <dxg:GridColumn FieldName="CarType" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect1" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect2" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect3" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect4" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect5" IsSmart="True"/>
+                <dxg:GridColumn FieldName="Detect6" IsSmart="True"/>
+                <dxg:GridColumn FieldName="UDP" IsSmart="True"/>
+            </dxg:GridControl>
+
+        </Grid>
+
+
+        <Grid Grid.Row="2">
+
+            <dxlc:LayoutControl Orientation="Vertical" IsEnabled="False">
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+
+        </Grid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Content="开始" Command="{Binding StartCommand}"/>
+            <Button Content="暂停" Command="{Binding PauseCommand}"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+        </StackPanel>
+
+
+    </Grid>
+
+</UserControl>

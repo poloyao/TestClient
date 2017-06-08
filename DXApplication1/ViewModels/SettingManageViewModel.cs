@@ -19,8 +19,8 @@ namespace DXApplication1.ViewModels
 
         public SettingManageViewModel()
         {
-            SettingMenu.Add(new ViewModels.SettingMenu() { Title = "基本参数", ViewPath = "SetDetectorView", Description = "描述信息" });
-            SettingMenu.Add(new ViewModels.SettingMenu() { Title = "基本参数1", ViewPath = "SetDetector2View", Description = "描述信息" });
+            SettingMenu.Add(new ViewModels.SettingMenu() { Title = "属性形式", ViewPath = "SetDetectorView", Description = "根据model的属性特性值来创建呈现的位置。具有分组、查询的功能" });
+            SettingMenu.Add(new ViewModels.SettingMenu() { Title = "自动布局", ViewPath = "SetDetector2View", Description = "根据model的特性值创建呈现的位置，可横向排版，具有分组、tab标签的功能，但不具备查询功能。" });
             //SettingMenu.Add(new ViewModels.SettingMenu() { Title = "基本参数2", ViewPath = "", Description = "描述信息" });
             //SettingMenu.Add(new ViewModels.SettingMenu() { Title = "基本参数3", ViewPath = "", Description = "描述信息" });
                                     

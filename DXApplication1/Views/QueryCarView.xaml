@@ -1,0 +1,68 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:DXApplication1.ViewModels"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="DXApplication1.Views.QueryCarView"
+             mc:Ignorable="d"
+             DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:QueryCarViewModel}}"
+             d:DesignHeight="300" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+
+            <dxlc:LayoutControl Orientation="Vertical">
+                <dxlc:LayoutGroup Orientation="Vertical">
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit EditValue="{Binding CarNo}" />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="条件">
+                        <dxe:TextEdit />
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup>
+                    <Button Command="{Binding QueryCommand}">查询</Button>
+                    <Button Command="{Binding ClearCommand}">清空</Button>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding Data}">
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False"/>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

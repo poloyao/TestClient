@@ -27,16 +27,14 @@ namespace DXApplication1.ViewModels
         {
             List<ModuleInfo> modules = new List<ModuleInfo>()
             {
-                 ViewModelSource.Create(()=>new ModuleInfo("SettingManageView",this,"参数设置")).SetIcon("car"),
-                  ViewModelSource.Create(()=>new ModuleInfo("SetDetectorView",this,"参数设置1")).SetIcon("car"),
-                   ViewModelSource.Create(()=>new ModuleInfo("SetDetector2View",this,"参数设置2")).SetIcon("car"),
-                    ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
-                     ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
-                      ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
+                 ViewModelSource.Create(()=>new ModuleInfo("SettingManageView",this,"弹出式")).SetIcon("car"),
+                  ViewModelSource.Create(()=>new ModuleInfo("SetDetectorView",this,"属性式")).SetIcon("car"),
+                   ViewModelSource.Create(()=>new ModuleInfo("SetDetector2View",this,"自生成式")).SetIcon("car"),
+                    ViewModelSource.Create(()=>new ModuleInfo("TestRTD",this,"实时检测")).SetIcon("car"),
+                     ViewModelSource.Create(()=>new ModuleInfo("QueryCarView",this,"车辆查询")).SetIcon("car"),
+                      ViewModelSource.Create(()=>new ModuleInfo("PrintView",this,"导出/打印")).SetIcon("car"),
                        ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
                         ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
-
-
             };
             ModuleGroups = new ModuleGroup[] {
                 new ModuleGroup("功能",modules)
