@@ -4,6 +4,7 @@ using DevExpress.Mvvm;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using DevExpress.Mvvm.POCO;
 
 namespace DXApplication1.ViewModels
 {
@@ -33,7 +34,7 @@ namespace DXApplication1.ViewModels
 
         [Display(Name = "参数1", GroupName = group1)]
         [Range(0, 1000000)]
-        public decimal Param1 { get; set; }
+        public virtual decimal Param1 { get; set; }
         [Display(Name = "参数2", GroupName = group1)]
         [Range(0, 1000000)]
         public decimal Param2 { get; set; }
@@ -62,6 +63,15 @@ namespace DXApplication1.ViewModels
         [Range(0, 1000000)]
         public decimal Param10 { get; set; }
 
+        public void RaisePropertyChanged(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RaisePropertyChanging(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class ControlParameter2
     {

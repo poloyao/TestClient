@@ -8,14 +8,28 @@ using System.Windows.Threading;
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Xpf.Core;
 using System.ComponentModel.DataAnnotations;
+using DevExpress.Mvvm.POCO;
+using DevExpress.Mvvm;
 
 namespace DXApplication1.ViewModels
 {
     [POCOViewModel]
-    public class TestRTDViewModel
+    public class TestRTDViewModel :ViewModelBase
     {
+        protected IDispatcherService DispatcherService { get { return this.GetService<IDispatcherService>(); } }
         public ObservableCollectionCore<RTDStation> Stations { get; set; }
         public ObservableCollectionCore<RTDItem> Data { get; set; }
+
+        public ObservableCollectionCore<ControlParameter> CPS { get; set; } = new ObservableCollectionCore<ControlParameter>();
+
+        public virtual ControlParameter CP { get; set; } = new ControlParameter();
+        public ControlParameter CP2 { get; set; }
+
+        public virtual DispItem DI { get; set; } = new DispItem();
+
+        public virtual int lala { get; set; } = 100;
+
+
         DispatcherTimer timer;
 
 
@@ -28,6 +42,14 @@ namespace DXApplication1.ViewModels
             Stations.Add(new RTDStation() { StationNo = "二工位", StationName = "测重检测" });
             Stations.Add(new RTDStation() { StationNo = "三工位", StationName = "外廓检测" });
             Stations.Add(new RTDStation() { StationNo = "四工位", StationName = "灯光检测" });
+
+            UpdataCP(CP);
+            CPS.Add(CP);
+            CP2 = new ControlParameter();
+
+            DI.Param1 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+            DI.Param2 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+            DI.Param3 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
         }
 
         public void StartUpdate()
@@ -72,6 +94,13 @@ namespace DXApplication1.ViewModels
                 CarIndex++;
             
             Stations.EndUpdate();
+            //DispatcherService.BeginInvoke(() =>
+            //{
+            //   // UpdataCP(CPS.First());
+            //   // UpdataCP(CP);
+            //});
+            //CP.Param2 = 123m;
+            lala = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100);
         }
 
         void UpdateRTD(RTDItem item)
@@ -89,10 +118,22 @@ namespace DXApplication1.ViewModels
                     break;
                 }                
             }
-
-            
-
         }
+
+
+        void UpdataCP(ControlParameter cp)
+        {
+            //cp = null;
+            //cp = new ControlParameter();
+            var prps = typeof(ControlParameter).GetProperties();
+            var parms = prps.Where(x => x.Name.Contains("Param")).ToList();
+            foreach (var item in parms)
+            {
+                item.SetValue(cp, (decimal)new Random(Guid.NewGuid().GetHashCode()).Next(0, 100));
+            }
+        }
+
+
 
         public void Start()
         {
@@ -104,6 +145,47 @@ namespace DXApplication1.ViewModels
             timer.Stop();
         }
 
+
+        public void UpdateCPS()
+        {
+            //DispatcherService.BeginInvoke(() =>
+            //{
+            //    //UpdataCP(CPS.First());
+            //    UpdataCP(CP);
+            //});
+
+            //CP = new ControlParameter();
+            //UpdataCP(CP);
+            DI.Param1 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+            DI.Param2 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+            DI.Param3 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+            DispatcherService.BeginInvoke(() =>
+            {
+                CP.Param1 = 100;
+                CP.Param2 = 76;
+                CP.Param3 = 60;
+                CP.Param4 = 23;
+
+                DI.Param1 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+                DI.Param2 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+                DI.Param3 = new Random(Guid.NewGuid().GetHashCode()).Next(0, 100).ToString();
+
+            });
+
+        
+
+
+        }
+
+    }
+
+    public class DispItem
+    {
+        public virtual string Param1 { get; set; }
+
+        public virtual string Param2 { get; set; }
+
+        public virtual string Param3 { get; set; }
     }
 
     public class RTDItem
@@ -139,6 +221,10 @@ namespace DXApplication1.ViewModels
 
     public class RTDStation
     {
+        public string Title
+        {
+            get { return StationNo + "-" + StationName; }
+        }
         public string Name { get; set; }
 
         public string StationNo { get; set; }
@@ -146,5 +232,6 @@ namespace DXApplication1.ViewModels
         public string StationName { get; set; }
 
         public string CarNo { get; set; }
+        
     }
 }

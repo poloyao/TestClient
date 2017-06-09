@@ -24,5 +24,14 @@ namespace DXApplication1
         {
             InitializeComponent();
         }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+            base.OnMouseLeftButtonDown(e);
+        }
     }
 }

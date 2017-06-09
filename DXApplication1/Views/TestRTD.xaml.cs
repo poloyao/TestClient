@@ -24,6 +24,7 @@ namespace DXApplication1.Views
         public TestRTD()
         {
             InitializeComponent();
+            //DevExpress.Xpf.DemoBase.Helpers.ColumnScrollControl
         }
     }
 

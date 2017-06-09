@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<UserControl xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,9 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              xmlns:ViewModels="clr-namespace:DXApplication1.ViewModels"
-             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" x:Class="DXApplication1.Views.TestRTD"
+             xmlns:demobase="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:helpers="clr-namespace:DevExpress.Xpf.DemoBase.Helpers.Internal;assembly=DevExpress.Xpf.DemoBase.v17.1"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys" xmlns:Custom="http://schemas.devexpress.com/winfx/2008/xaml/grid/internal" xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:Native="clr-namespace:DevExpress.Xpf.Grid.Native;assembly=DevExpress.Xpf.Grid.v17.1" x:Class="DXApplication1.Views.TestRTD"
              mc:Ignorable="d"
              DataContext="{dxmvvm:ViewModelSource Type={x:Type ViewModels:TestRTDViewModel}}"
              d:DesignHeight="600" d:DesignWidth="800">
@@ -24,7 +26,7 @@
         </ItemsPanelTemplate>
         <DataTemplate x:Key="DataTemplate1">
             <Border CornerRadius="5" Background="#FFEA6969" >
-                <Grid Margin="5" Width="230">
+                <Grid Margin="5" Width="250">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -40,22 +42,122 @@
                 </Grid>
             </Border>
         </DataTemplate>
+        <DataTemplate x:Key="DataTemplate2">
+            <Grid x:Name="grid" Height="170" Margin="1">
+                <Border x:Name="outerBorder" BorderBrush="Gray" BorderThickness="1" Background="#99808080" CornerRadius="3" Opacity="0">
+                    <!--<Border.Visibility>
+                        <Binding Path="IsAvailable">
+                            <Binding.Converter>
+                                <dxmvvm:BooleanToVisibilityConverter HiddenInsteadCollapsed="False" HiddenInsteadOfCollapsed="False" Inverse="False"/>
+                            </Binding.Converter>
+                        </Binding>
+                    </Border.Visibility>-->
+                </Border>
+                <Grid>
+                    <!--<Grid.Effect>
+                        <DropShadowEffect BlurRadius="4" Direction="-90" ShadowDepth="1">
+                            <DropShadowEffect.Opacity>
+                                <Binding Path="IsAvailable">
+                                    <Binding.Converter>
+                                        <dxmvvm:ObjectToObjectConverter DefaultSource="{x:Null}" DefaultTarget="{x:Null}">
+                                            <dxmvvm:MapItem Source="False" Target="0"/>
+                                            <dxmvvm:MapItem Source="True" Target="0.15"/>
+                                        </dxmvvm:ObjectToObjectConverter>
+                                    </Binding.Converter>
+                                </Binding>
+                            </DropShadowEffect.Opacity>
+                        </DropShadowEffect>
+                    </Grid.Effect>
+                    <Grid.Opacity>
+                        <Binding Path="IsAvailable">
+                            <Binding.Converter>
+                                <dxmvvm:ObjectToObjectConverter DefaultSource="{x:Null}" DefaultTarget="{x:Null}">
+                                    <dxmvvm:MapItem Source="False" Target="0.35"/>
+                                    <dxmvvm:MapItem Source="True" Target="1"/>
+                                </dxmvvm:ObjectToObjectConverter>
+                            </Binding.Converter>
+                        </Binding>
+                    </Grid.Opacity>-->
+                    <Border BorderBrush="#FFCACACA" BorderThickness="1" Background="White" Height="150" Margin="9">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Height="39" Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="#FF3C3C3C" FontSize="16" Margin="0,0,0,2" Grid.Row="1" TextAlignment="Center" Text="{Binding Title}"/>
+                            </Grid>
+                            <Grid Height="100" Margin="9,9,9,0" Width="250" Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="{Binding Text, Converter={StaticResource CarIcoConverter},ElementName=carno}" />
+                                <Border BorderBrush="Black" BorderThickness="1" Opacity="0.15" CornerRadius="5" Background="#FF073C11" Grid.RowSpan="2"/>
+                                <TextBlock Grid.Row="1" x:Name="carno" TextAlignment="Center" Text="{Binding CarNo}" />
+                            </Grid>
+                            <Image x:Name="image" HorizontalAlignment="Right" Margin="0,6,-7,0" Stretch="None" VerticalAlignment="Top"/>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            <DataTemplate.Triggers>
+                <!--<DataTrigger Binding="{Binding PlatformLabel.Length}" Value="True">
+                    <Setter Property="Source" TargetName="image" Value="{Binding PlatformLabel, ConverterParameter=pack://application:\,\,\,/DevExpress.Xpf.DemoBase.v17.1;component/Images/PlatformIcons/Label-\{0\}.png}"/>
+                    <Setter Property="Visibility" TargetName="image" Value="Visible"/>
+                </DataTrigger>-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" TargetName="outerBorder" Value="0.25"/>
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </UserControl.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:DispatcherService/>
+    </dxmvvm:Interaction.Behaviors>
     <dxmvvm:Interaction.Triggers>
         <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding StartUpdateCommand}"/>
         <dxmvvm:EventToCommand EventName="BeforeModuleDisappear" Command="{Binding StopUpdateCommand}"/>
     </dxmvvm:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="136"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!--<Grid>
+            <ListView ItemsSource="{Binding Stations}"  ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemTemplate="{DynamicResource DataTemplate1}" Grid.IsSharedSizeScope="True" />
+        </Grid>-->
+
         <Grid>
-            <ListView ItemsSource="{Binding Stations}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemTemplate="{DynamicResource DataTemplate1}" />
+            <Border DockPanel.Dock="Top" BorderThickness="0,1" BorderBrush="#D9D9D9" Background="#F2F2F2" Height="210" Padding="15,17,15,9" Margin="1,0,1,0">
+                <demobase:ColumnScrollControl Focusable="True" >
+                    <dxmvvm:Interaction.Behaviors>
+                        <demobase:ColumnScrollControlService x:Name="ColumScrollService"/>
+                    </dxmvvm:Interaction.Behaviors>
+                    <demobase:DemoCarouselControl Focusable="True" FlyoutVisibility="Visible"  ItemsSource="{Binding Stations}" ItemTemplate="{DynamicResource DataTemplate2}"/>
+                </demobase:ColumnScrollControl>
+            </Border>
         </Grid>
+
+        <!--<Grid>
+            <dxg:GridControl ItemsSource="{Binding Stations}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
+                <dxg:GridControl.View>
+                    <dxg:CardView 
+                                  />
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+
+        </Grid>-->
+
 
         <!--<Grid>
             <Grid.ColumnDefinitions>
@@ -149,110 +251,145 @@
 
         <Grid Grid.Row="2">
 
-            <dxlc:LayoutControl Orientation="Vertical" IsEnabled="False">
-                <dxlc:LayoutGroup>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
+            <dxlc:LayoutControl Orientation="Horizontal" IsEnabled="True" >
+                <!--<dxlc:LayoutGroup Orientation="Vertical">
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
 
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
 
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="运行参数">
-                        <dxe:TextEdit />
-                    </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
 
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>-->
+                <dxlc:LayoutGroup Orientation="Vertical" x:Name="lg1">
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit EditValue="{Binding lala}"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="运行参数">
+                            <dxe:TextEdit />
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup Orientation="Vertical" >
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit Text="{Binding DI.Param1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行678参数">
+                        <dxe:TextEdit Text="{Binding DI.Param2}" />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit Text="{Binding DI.Param3,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit Text="{Binding DI.Param3,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit Text="{Binding Param5}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="运行参数">
+                        <dxe:TextEdit Text="{Binding Param6}"/>
+                    </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup Orientation="Vertical" >
+                    <dxc:ChartControl Height="{Binding ElementName=lg1,Path=ActualHeight}"/>
+                </dxlc:LayoutGroup>
+                <!--<dxlc:DataLayoutControl CurrentItem="{Binding CP}"/>-->
             </dxlc:LayoutControl>
 
         </Grid>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Content="开始" Command="{Binding StartCommand}"/>
             <Button Content="暂停" Command="{Binding PauseCommand}"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
-            <Button Content="Button"/>
+            <Button Content="刷新" Command="{Binding UpdateCPSCommand}"/>
         </StackPanel>
 
 

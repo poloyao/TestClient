@@ -5,11 +5,19 @@
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:view="clr-namespace:DXApplication1.Views"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" x:Class="DXApplication1.MainWindow"
+        SnapsToDevicePixels="True" OverridesDefaultStyle="False"
         Title="MainWindow" Height="800" Width="1200">
+    <Window.Resources>
+        <Style  x:Key="BlizzardWindowStyle" TargetType="{x:Type dx:DXWindow}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="WindowStyle" Value="None"/>
+        </Style>
+    </Window.Resources>
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:CurrentWindowService/>
     </dxmvvm:Interaction.Behaviors>
-    <Grid>
-        <view:MainView/>
-    </Grid>
+    <view:MainView/>
 </dx:DXWindow>

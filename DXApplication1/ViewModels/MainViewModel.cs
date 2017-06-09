@@ -34,7 +34,7 @@ namespace DXApplication1.ViewModels
                      ViewModelSource.Create(()=>new ModuleInfo("QueryCarView",this,"车辆查询")).SetIcon("car"),
                       ViewModelSource.Create(()=>new ModuleInfo("PrintView",this,"导出/打印")).SetIcon("car"),
                        ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
-                        ViewModelSource.Create(()=>new ModuleInfo("SettingView",this,"参数设置")).SetIcon("car"),
+                        ViewModelSource.Create(()=>new ModuleInfo("RealTimeDetectionView",this,"实验")).SetIcon("car"),
             };
             ModuleGroups = new ModuleGroup[] {
                 new ModuleGroup("功能",modules)
